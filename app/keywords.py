@@ -1,5 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 # Список валют
 currencies = {
     "rubble": "RUB",
@@ -8,7 +7,7 @@ currencies = {
     "yen": "JPY",
     "som": "KGS"
 }
-
+"""
 # Основная клавиатура для выбора первой валюты
 main = ReplyKeyboardMarkup(
     keyboard=[
@@ -34,4 +33,22 @@ def create_currency_keyboard(exclude_currency=None):
         keyboard=keyboard,
         resize_keyboard=True,
         input_field_placeholder="Выберите валюту для конвертации..."
+    )
+"""
+mains = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="RUB", callback_data="RUB")],
+    [InlineKeyboardButton(text="USD", callback_data="USD")],
+    [InlineKeyboardButton(text="EUR", callback_data="EUR")],
+    [InlineKeyboardButton(text="JPY", callback_data="JPY")],
+    [InlineKeyboardButton(text="KGS", callback_data="KGS")]])
+
+def create_currency_Inlinekeyboard(exclude_currency=None):
+    inline_keyboard = []
+    
+    for key, value in currencies.items():
+        if value != exclude_currency:
+            inline_keyboard.append([InlineKeyboardButton(text=value, callback_data=value)])
+    
+    return InlineKeyboardMarkup(
+        inline_keyboard=inline_keyboard
     )
