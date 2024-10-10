@@ -10,10 +10,6 @@ def get_exchange_rate(base_currency, target_currency):
     try:
         # Выполняем запрос к API
         response = requests.get(url)
-        
-        # Логируем статус код и ответ от API для диагностики
-        print(f"Статус код: {response.status_code}")
-        print(f"Ответ от API: {response.text}")
 
         # Преобразуем ответ в JSON
         data = response.json()
