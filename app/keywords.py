@@ -1,8 +1,37 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text = 'Рубль', callback_data = "rubble")],
-    [KeyboardButton(text = 'Доллар', callback_data = "dollar")],
-    [KeyboardButton(text = 'Евро', callback_data = "euro")],
-    [KeyboardButton(text = 'Йена', callback_data = "yen")],
-    [KeyboardButton(text = 'Сом', callback_data = "som")]], 
-    resize_keyboard=True, input_field_placeholder="Выберите валюту для конвертации...")
+# Список валют
+currencies = {
+    "rubble": "RUB",
+    "dollar": "USD",
+    "euro": "EUR",
+    "yen": "JPY",
+    "som": "KGS"
+}
+
+# Основная клавиатура для выбора первой валюты
+main = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="RUB")],
+        [KeyboardButton(text="USD")],
+        [KeyboardButton(text="EUR")],
+        [KeyboardButton(text="JPY")],
+        [KeyboardButton(text="KGS")]
+    ],
+    resize_keyboard=True,
+    input_field_placeholder="Выберите валюту для конвертации..."
+)
+
+# Функция для создания клавиатуры с исключением выбранной валюты
+def create_currency_keyboard(exclude_currency=None):
+    keyboard = []
+    
+    for key, value in currencies.items():
+        if value != exclude_currency:
+            keyboard.append([KeyboardButton(text=value)])
+    
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True,
+        input_field_placeholder="Выберите валюту для конвертации..."
+    )
